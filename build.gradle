@@ -121,6 +121,11 @@ tasks.register('checkReleaseFiles') {
                     problems << "${projectDir.toPath().relativize(f.toPath())} names missing art ${path}"
             }
         }
+        // LunaLib runs setting names and descriptions through String.format: a bare % crashes the
+        // game the moment that settings tab opens. Write "percent" instead.
+        file('data/config/LunaSettings.csv').readLines('UTF-8').eachWithIndex { line, i ->
+            if (line.contains('%')) problems << "LunaSettings.csv line ${i + 1} contains % (crashes LunaLib): write \"percent\""
+        }
         def luna = new groovy.json.JsonSlurper().parse(file('data/config/LunaSettingsConfig.json'))
         if (!luna.containsKey('toolbox_economy_curves')) problems << 'LunaLib icon is not keyed by the mod id'
         luna.each { modId, config -> if (!file(config.iconPath).isFile()) problems << "LunaLib icon missing: ${config.iconPath}" }

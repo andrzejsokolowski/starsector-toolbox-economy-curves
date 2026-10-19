@@ -19,4 +19,4 @@ Domestic goods are almost only bought by colonies, so scaling their makers keeps
 tec_producers,Makers follow the curve,Radio,Off,"Off, Domestic goods, Domestic goods and heavy machinery",Which makers follow the size curve.,,,Curve
 tec_header_raids,Raids Header,Header,Raid loot,,,,,Raids
 tec_raids_text,Raids Text,Text,"Theory of Toolbox lets each marine group carry off a tenth of a colony's whole unsold surplus, so a full raid takes all of it and more. Here each marine group takes a set share of everything the colony holds instead. A raid uses at most 10 marine groups.",,,,,Raids
-tec_raid_share,Loot per marine group (%),Double,1.0,,"Share of a commodity's stock at the colony that one marine group takes. 1% means a full raid takes a tenth. 0 keeps Theory of Toolbox's loot.",0,10,Raids
+tec_raid_share,Loot per marine group in percent,Double,1.0,,"Share of a commodity's stock at the colony that one marine group takes, in percent. 1 means a full raid takes a tenth. 0 keeps Theory of Toolbox's loot.",0,10,Raids
