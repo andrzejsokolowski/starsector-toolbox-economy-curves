@@ -8,7 +8,8 @@ The workspace `AGENTS.md` one folder up still governs releases, packaging, Git i
 Tasks, history and test lists: the **Toolbox Economy Curves board** in Andrzej's Notion, under
 **Starsector mods** (`collection://c2853687-d128-4f5a-adf3-651780f31e8a`). Working rules and game
 API notes: **Claude Information** (`collection://7bf9b1d6-b9e5-4b62-87f1-757bbaa51919`), starting
-with "Start here: working on Starsector mods through Notion". Ticket ids start with TEC. Update the
+with "Start here: working on Starsector mods through Notion". Ticket ids start with TEC. Read the
+board with `notion-query-data-sources` mode `view` on `view://3fe20ca7-5d20-81cf-8105-000ce6d314e6`. Update the
 board during the work, not only at release time.
 
 ## Build
