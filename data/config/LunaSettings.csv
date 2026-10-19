@@ -1,0 +1,22 @@
+fieldID,fieldName,fieldType,defaultValue,secondaryValue,fieldDescription,minValue,maxValue,tab
+tec_header_curve,Curve Header,Header,Size curve,,,,,Curve
+tec_curve_text,Curve Text,Text,"Theory of Toolbox doubles four amounts with every colony size: colony food demand, colony domestic goods demand, farm food output and farm heavy machinery demand. Light Industry and Heavy Industry do not double, so big colonies run short of goods and farms run short of machinery.
+
+Pick the curve those four amounts follow instead. Every curve except Theory of Toolbox's own gives the same amounts as Theory of Toolbox at the anchor size and only changes how they grow above and below it. Changes take hold within a frame, no restart needed.",,,,,Curve
+tec_shape,Size curve,Radio,Gentle,"Theory of Toolbox (doubling), Linear, Gentle, Custom growth, Custom list","Theory of Toolbox (doubling): unchanged, x2 per size.
+Linear: the anchor size amount per size, so a colony twice the size needs twice as much.
+Gentle: x1.2, x1.5, x2.25, x3.5, x5, x7.5, x10 for sizes 2 to 8, then about x1.3 per size up to 15.
+Custom growth: the growth per size set below.
+Custom list: the list set below.",,,Curve
+tec_anchor,Anchor size,Int,6,,"At this colony size every curve gives the same amounts as Theory of Toolbox. Size 6 is where one Light Industry or Heavy Industry still covers a colony of its own size.",1,15,Curve
+tec_growth,Custom growth per size,Double,1.5,,"Used by Custom growth. Each colony size multiplies the four amounts by this. 2 is Theory of Toolbox, 1 is linear.",1,3,Curve
+tec_list,Custom list,String,"1, 1.2, 1.5, 2.25, 3.5, 5, 7.5, 10, 13, 17, 22, 28, 36, 46, 58",,"Used by Custom list. Multipliers for colony sizes 1 to 15, separated by commas. Only the shape counts: the list is scaled so the anchor size matches Theory of Toolbox. Theory of Toolbox's own list is 1, 2, 4, 8, 16 and so on. Sizes past the end of the list keep its last value. A list with a typo falls back to Gentle.",,,Curve
+tec_stop_at,Stop growing at size,Int,15,,"Past this size the curve stays flat. 15 never stops. Set 10 to hold Theory of Toolbox's doubling at size 10. While this mod is on, this setting replaces Astral Ascension Renewed's own hold at size 10.",1,15,Curve
+tec_header_makers,Makers Header,Header,Light and Heavy Industry,,,,,Curve
+tec_makers_text,Makers Text,Text,"Optionally the buildings that make domestic goods (Light Industry) or heavy machinery (Heavy Industry, Orbital Works and modded ones) follow the same curve, so their output grows with colony size the way demand does. They make the same as now at the anchor size.
+
+Domestic goods are almost only bought by colonies, so scaling their makers keeps them balanced. Heavy machinery is also bought by mines, refineries and other buildings that do not follow the curve: scaling its makers floods those markets on big colonies and starves them on small ones.",,,,,Curve
+tec_producers,Makers follow the curve,Radio,Off,"Off, Domestic goods, Domestic goods and heavy machinery",Which makers follow the size curve.,,,Curve
+tec_header_raids,Raids Header,Header,Raid loot,,,,,Raids
+tec_raids_text,Raids Text,Text,"Theory of Toolbox lets each marine group carry off a tenth of a colony's whole unsold surplus, so a full raid takes all of it and more. Here each marine group takes a set share of everything the colony holds instead. A raid uses at most 10 marine groups.",,,,,Raids
+tec_raid_share,Loot per marine group (%),Double,1.0,,"Share of a commodity's stock at the colony that one marine group takes. 1% means a full raid takes a tenth. 0 keeps Theory of Toolbox's loot.",0,10,Raids
