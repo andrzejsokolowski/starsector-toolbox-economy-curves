@@ -28,6 +28,7 @@ class CurveTest {
     @Test
     void everyShapeMatchesToolboxAtTheAnchor() {
         for (Curve.Shape shape : Curve.Shape.values()) {
+            if (shape == Curve.Shape.BEND) continue; // pinned to the bend size, tested below
             for (int anchor = 1; anchor <= 15; anchor++) {
                 Curve c = new Curve(shape, anchor, 15, 1.5, Curve.GENTLE);
                 assertEquals(Curve.toolbox(anchor), c.factor(anchor), EPS, shape + " at anchor " + anchor);
@@ -82,5 +83,36 @@ class CurveTest {
         assertNull(Curve.parseList("1, 0, 2"));
         assertNull(Curve.parseList(" , "));
         assertEquals(15, Curve.parseList("1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1").length);
+    }
+
+    @Test
+    void bendIsToolboxUpToTheBendThenGrowsGentler() {
+        Curve c = new Curve(Curve.Shape.BEND, 6, 15, 1.5, null, 7, 1.4);
+        for (int s = 1; s <= 7; s++) {
+            assertEquals(Curve.toolbox(s), c.factor(s), EPS);
+            assertEquals(1, c.producer(s), EPS);
+        }
+        assertEquals(64 * 1.4, c.factor(8), EPS);
+        assertEquals(64 * Math.pow(1.4, 8), c.factor(15), EPS);
+        assertEquals(Math.pow(1.4, 3), c.producer(10), EPS);
+    }
+
+    @Test
+    void bendStopsAtTheCap() {
+        Curve c = new Curve(Curve.Shape.BEND, 6, 10, 1.5, null, 7, 1.4);
+        assertEquals(c.factor(10), c.factor(15), EPS);
+    }
+
+    @Test
+    void upkeepFollowsOutputButNeverDrops() {
+        Curve gentle = new Curve(Curve.Shape.GENTLE, 6, 15, 1.5, null);
+        assertEquals(1, gentle.upkeep(3, 0.5), EPS);
+        assertEquals(1, gentle.upkeep(6, 0.5), EPS);
+        assertEquals(Math.sqrt(2), gentle.upkeep(8, 0.5), EPS);
+        assertEquals(2, gentle.upkeep(8, 1), EPS);
+        assertEquals(1, gentle.upkeep(8, 0), EPS);
+        Curve bend = new Curve(Curve.Shape.BEND, 6, 15, 1.5, null, 7, 1.4);
+        assertEquals(1, bend.upkeep(5, 0.5), EPS);
+        assertEquals(Math.sqrt(1.4 * 1.4 * 1.4), bend.upkeep(10, 0.5), EPS);
     }
 }

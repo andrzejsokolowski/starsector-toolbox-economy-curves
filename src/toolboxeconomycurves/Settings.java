@@ -10,14 +10,21 @@ public final class Settings {
     static final String SHAPE_GENTLE = "Gentle";
     static final String SHAPE_GROWTH = "Custom growth";
     static final String SHAPE_LIST = "Custom list";
+    static final String SHAPE_BEND = "Bend";
 
     static final String PRODUCERS_OFF = "Off";
     static final String PRODUCERS_GOODS = "Domestic goods";
     static final String PRODUCERS_ALL = "Domestic goods and heavy machinery";
 
+    static final String UPKEEP_OFF = "Off";
+    static final String UPKEEP_ROOT = "Square root";
+    static final String UPKEEP_FULL = "In step with output";
+
     static final int DEFAULT_ANCHOR = 6;
     static final int DEFAULT_STOP_AT = 15;
     static final double DEFAULT_GROWTH = 1.5;
+    static final int DEFAULT_BEND_AT = 7;
+    static final double DEFAULT_BEND_GROWTH = 1.4;
     static final double DEFAULT_RAID_SHARE = 1.0;
 
     private Settings() {}
@@ -36,6 +43,9 @@ public final class Settings {
             case SHAPE_GROWTH:
                 shape = Curve.Shape.GROWTH;
                 break;
+            case SHAPE_BEND:
+                shape = Curve.Shape.BEND;
+                break;
             case SHAPE_LIST:
                 list = Curve.parseList(string("tec_list", null));
                 shape = list == null ? Curve.Shape.GENTLE : Curve.Shape.LIST;
@@ -44,7 +54,20 @@ public final class Settings {
                 shape = Curve.Shape.GENTLE;
         }
         return new Curve(shape, integer("tec_anchor", DEFAULT_ANCHOR), integer("tec_stop_at", DEFAULT_STOP_AT),
-                decimal("tec_growth", DEFAULT_GROWTH), list);
+                decimal("tec_growth", DEFAULT_GROWTH), list, integer("tec_bend_at", DEFAULT_BEND_AT),
+                decimal("tec_bend_growth", DEFAULT_BEND_GROWTH));
+    }
+
+    /** Power the output multiplier is raised to for upkeep: 0 off, 0.5 square root, 1 in step. */
+    public static double upkeepPower() {
+        switch (string("tec_upkeep", UPKEEP_ROOT)) {
+            case UPKEEP_OFF:
+                return 0;
+            case UPKEEP_FULL:
+                return 1;
+            default:
+                return 0.5;
+        }
     }
 
     /** Light Industry and every other domestic goods producer follows the curve. */

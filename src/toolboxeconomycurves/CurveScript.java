@@ -38,7 +38,9 @@ public final class CurveScript implements EveryFrameScript {
 
     static final String CURVE_ID = "tec_size_curve";
     static final String PRODUCER_ID = "tec_size_curve_producers";
+    static final String UPKEEP_ID = "tec_size_curve_upkeep";
     static final String CURVE_DESC = "Size curve (Toolbox Economy Curves)";
+    static final String UPKEEP_DESC = "Upkeep grows with output (Toolbox Economy Curves)";
 
     private static final double SAME = 1e-4;
 
@@ -86,6 +88,7 @@ public final class CurveScript implements EveryFrameScript {
 
         Curve curve = Settings.curve();
         boolean goodsProducers = Settings.scaleGoodsProducers();
+        double upkeepPower = Settings.upkeepPower();
         boolean machineryProducers = Settings.scaleMachineryProducers();
 
         for (MarketAPI market : Global.getSector().getEconomy().getMarketsCopy()) {
@@ -96,11 +99,13 @@ public final class CurveScript implements EveryFrameScript {
                 scale(population.getDemand(Commodities.DOMESTIC_GOODS).getQuantity(), TOOLBOX_SCALE, curve.goodsDemand(size));
             }
             for (Industry ind : market.getIndustries()) {
-                farm(ind, curve.farmFood(size));
+                boolean onCurve = farm(ind, curve.farmFood(size));
                 scale(ind.getDemand(Commodities.HEAVY_MACHINERY).getQuantity(), TOOLBOX_FARM, curve.farmMachinery(size));
                 if (ind == population) continue;
-                if (goodsProducers) producer(ind, Commodities.DOMESTIC_GOODS, curve.producer(size));
-                if (machineryProducers) producer(ind, Commodities.HEAVY_MACHINERY, curve.producer(size));
+                if (goodsProducers) onCurve |= producer(ind, Commodities.DOMESTIC_GOODS, curve.producer(size));
+                if (machineryProducers) onCurve |= producer(ind, Commodities.HEAVY_MACHINERY, curve.producer(size));
+                // A building that makes more because of the curve pays more upkeep (never less).
+                if (onCurve) assertMult(ind.getUpkeep(), UPKEEP_ID, curve.upkeep(size, upkeepPower), UPKEEP_DESC);
             }
         }
         ledger.sweep();
@@ -116,20 +121,21 @@ public final class CurveScript implements EveryFrameScript {
     /**
      * Farms. Theory of Toolbox adds a flat amount so output becomes base x 2^(size - 1), where base
      * is the farm's own output after any heavy machinery shortage. The wanted output is base x the
-     * curve's factor, on top of everything else the farm has.
+     * curve's factor, on top of everything else the farm has. Returns whether this is a farm.
      */
-    private void farm(Industry ind, double factor) {
+    private boolean farm(Industry ind, double factor) {
         MutableStat food = ind.getSupply(Commodities.FOOD).getQuantity();
         StatMod theirs = food.getFlatStatMod(TOOLBOX_FARM);
-        if (theirs == null) return;
+        if (theirs == null) return false;
         double others = food.getBaseValue();
         for (Map.Entry<String, StatMod> e : food.getFlatMods().entrySet()) {
             if (!TOOLBOX_FARM.equals(e.getKey())) others += e.getValue().getValue();
         }
         double now = others + theirs.getValue();
-        if (now <= 0) return;
+        if (now <= 0) return true;
         double wanted = others + toolboxBase(ind, food) * (factor - 1);
         assertMult(food, CURVE_ID, Math.max(0, wanted) / (now * ascensionCap(food)));
+        return true;
     }
 
     /** The output Theory of Toolbox doubles: AoTDToolboxFoodProd.getSupplyFromIndustry, minus its own entry. */
@@ -155,11 +161,12 @@ public final class CurveScript implements EveryFrameScript {
         return Math.round(penalty * total);
     }
 
-    /** Light Industry, Heavy Industry and any modded building that makes the commodity. */
-    private void producer(Industry ind, String commodity, double mult) {
+    /** Light Industry, Heavy Industry and any modded building that makes the commodity. Returns whether it does. */
+    private boolean producer(Industry ind, String commodity, double mult) {
         MutableStat supply = ind.getSupply(commodity).getQuantity();
-        if (supply.getBaseValue() + sumFlats(supply) <= 0) return;
+        if (supply.getBaseValue() + sumFlats(supply) <= 0) return false;
         assertMult(supply, PRODUCER_ID, mult);
+        return true;
     }
 
     private static double sumFlats(MutableStat stat) {
@@ -174,8 +181,12 @@ public final class CurveScript implements EveryFrameScript {
     }
 
     private void assertMult(MutableStat stat, String id, double value) {
+        assertMult(stat, id, value, CURVE_DESC);
+    }
+
+    private void assertMult(MutableStat stat, String id, double value, String desc) {
         if (Double.isNaN(value) || Double.isInfinite(value)) return;
         if (Math.abs(value - 1) < SAME) return;
-        ledger.mult(stat, id, (float) value, CURVE_DESC);
+        ledger.mult(stat, id, (float) value, desc);
     }
 }

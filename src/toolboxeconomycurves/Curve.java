@@ -8,15 +8,17 @@ import java.util.List;
  *
  * Theory of Toolbox multiplies four amounts by 2^(size - 1) (or a fixed fraction of it): colony food
  * demand, colony domestic goods demand (a quarter), farm food output and farm heavy machinery demand
- * (0.3 of it). {@link #factor(int)} is the number that takes the place of 2^(size - 1). Every shape
- * except Theory of Toolbox's own is pinned to Theory of Toolbox at the anchor size, so the amounts
- * stay the same there and only the growth above and below it changes.
+ * (0.3 of it). {@link #factor(int)} is the number that takes the place of 2^(size - 1). The anchored
+ * shapes are pinned to Theory of Toolbox at the anchor size, so the amounts stay the same there and
+ * only the growth above and below it changes. The bend shape is Theory of Toolbox itself up to the
+ * bend size and a gentler growth per size above it, so the colonies the Sector starts with (sizes 2
+ * to 8) keep Theory of Toolbox's balance.
  *
  * No game classes in here, so it can be tested on its own.
  */
 public final class Curve {
 
-    public enum Shape { TOOLBOX, LINEAR, GENTLE, GROWTH, LIST }
+    public enum Shape { TOOLBOX, LINEAR, GENTLE, GROWTH, LIST, BEND }
 
     public static final int MAX_SIZE = 15;
 
@@ -31,13 +33,21 @@ public final class Curve {
     private final int stopAt;
     private final double growth;
     private final double[] list;
+    private final int bendAt;
+    private final double bendGrowth;
 
     public Curve(Shape shape, int anchor, int stopAt, double growth, double[] list) {
+        this(shape, anchor, stopAt, growth, list, 7, 1.4);
+    }
+
+    public Curve(Shape shape, int anchor, int stopAt, double growth, double[] list, int bendAt, double bendGrowth) {
         this.shape = shape;
         this.anchor = clampSize(anchor);
         this.stopAt = clampSize(stopAt);
-        this.growth = Double.isNaN(growth) || growth <= 0 ? 1 : growth;
+        this.growth = positive(growth);
         this.list = list == null || list.length == 0 ? GENTLE : list;
+        this.bendAt = clampSize(bendAt);
+        this.bendGrowth = positive(bendGrowth);
     }
 
     public Shape getShape() {
@@ -57,6 +67,7 @@ public final class Curve {
     public double factor(int size) {
         int s = Math.min(Math.max(size, 1), stopAt);
         if (shape == Shape.TOOLBOX) return toolbox(s);
+        if (shape == Shape.BEND) return s <= bendAt ? toolbox(s) : toolbox(bendAt) * Math.pow(bendGrowth, s - bendAt);
         int a = Math.min(anchor, stopAt);
         return toolbox(anchor) * shapeAt(s) / shapeAt(a);
     }
@@ -77,9 +88,22 @@ public final class Curve {
         return MACHINERY_SHARE * factor(size);
     }
 
-    /** Light and Heavy Industry output: unchanged at the anchor size, following the curve elsewhere. */
+    /**
+     * Light and Heavy Industry output: unchanged at the anchor size, following the curve elsewhere.
+     * For the bend shape: unchanged up to the bend size, following the gentler growth above it.
+     */
     public double producer(int size) {
+        if (shape == Shape.BEND) return factor(size) / toolbox(Math.min(Math.max(size, 1), bendAt));
         return factor(size) / toolbox(anchor);
+    }
+
+    /**
+     * Upkeep multiplier for a building whose output follows the curve: its output multiplier to the
+     * given power (0.5 = square root, 1 = in step). Never below 1, so small colonies keep their upkeep.
+     */
+    public double upkeep(int size, double power) {
+        if (power <= 0) return 1;
+        return Math.pow(Math.max(1, producer(size)), power);
     }
 
     private double shapeAt(int size) {
@@ -94,6 +118,10 @@ public final class Curve {
             default:
                 return toolbox(size);
         }
+    }
+
+    private static double positive(double value) {
+        return Double.isNaN(value) || value <= 0 ? 1 : value;
     }
 
     private static int clampSize(int size) {

@@ -2,13 +2,16 @@ fieldID,fieldName,fieldType,defaultValue,secondaryValue,fieldDescription,minValu
 tec_header_curve,Curve Header,Header,Size curve,,,,,Curve
 tec_curve_text,Curve Text,Text,"Theory of Toolbox doubles four amounts with every colony size: colony food demand, colony domestic goods demand, farm food output and farm heavy machinery demand. Light Industry and Heavy Industry do not double, so big colonies run short of goods and farms run short of machinery.
 
-Pick the curve those four amounts follow instead. Every curve except Theory of Toolbox's own gives the same amounts as Theory of Toolbox at the anchor size and only changes how they grow above and below it. Changes take hold within a frame, no restart needed.",,,,,Curve
-tec_shape,Size curve,Radio,Gentle,"Theory of Toolbox (doubling), Linear, Gentle, Custom growth, Custom list","Theory of Toolbox (doubling): unchanged, x2 per size.
+Pick the curve those four amounts follow instead. Bend keeps Theory of Toolbox exactly up to the bend size and grows gentler above it, so the Sector's own colonies (sizes 2 to 8) stay as Theory of Toolbox balances them. The other curves give the same amounts as Theory of Toolbox at the anchor size and change how they grow above and below it. Changes take hold within a frame, no restart needed.",,,,,Curve
+tec_shape,Size curve,Radio,Gentle,"Theory of Toolbox (doubling), Bend, Linear, Gentle, Custom growth, Custom list","Theory of Toolbox (doubling): unchanged, x2 per size.
+Bend: Theory of Toolbox up to the bend size, then the growth per size set below.
 Linear: the anchor size amount per size, so a colony twice the size needs twice as much.
 Gentle: x1.2, x1.5, x2.25, x3.5, x5, x7.5, x10 for sizes 2 to 8, then about x1.3 per size up to 15.
 Custom growth: the growth per size set below.
 Custom list: the list set below.",,,Curve
-tec_anchor,Anchor size,Int,6,,"At this colony size every curve gives the same amounts as Theory of Toolbox. Size 6 is where one Light Industry or Heavy Industry still covers a colony of its own size.",1,15,Curve
+tec_bend_at,Bend size,Int,7,,"Used by Bend. Up to this colony size the amounts are Theory of Toolbox's own. Size 7 is the biggest common size in the Sector at the start of a game.",1,15,Curve
+tec_bend_growth,Growth per size above the bend,Double,1.4,,"Used by Bend. Each colony size above the bend multiplies the amounts by this, instead of Theory of Toolbox's 2. 1 is linear.",1,3,Curve
+tec_anchor,Anchor size,Int,6,,"Used by Linear, Gentle, Custom growth and Custom list. At this colony size those curves give the same amounts as Theory of Toolbox. Size 6 is where one Light Industry or Heavy Industry still covers a colony of its own size.",1,15,Curve
 tec_growth,Custom growth per size,Double,1.5,,"Used by Custom growth. Each colony size multiplies the four amounts by this. 2 is Theory of Toolbox, 1 is linear.",1,3,Curve
 tec_list,Custom list,String,"1, 1.2, 1.5, 2.25, 3.5, 5, 7.5, 10, 13, 17, 22, 28, 36, 46, 58",,"Used by Custom list. Multipliers for colony sizes 1 to 15, separated by commas. Only the shape counts: the list is scaled so the anchor size matches Theory of Toolbox. Theory of Toolbox's own list is 1, 2, 4, 8, 16 and so on. Sizes past the end of the list keep its last value. A list with a typo falls back to Gentle.",,,Curve
 tec_stop_at,Stop growing at size,Int,15,,"Past this size the curve stays flat. 15 never stops. Set 10 to hold Theory of Toolbox's doubling at size 10. While this mod is on, this setting replaces Astral Ascension Renewed's own hold at size 10.",1,15,Curve
@@ -16,7 +19,8 @@ tec_header_makers,Producers Header,Header,Producers: Light and Heavy Industry,,,
 tec_makers_text,Producers Text,Text,"Producers are the buildings that make domestic goods (Light Industry) or heavy machinery (Heavy Industry, Orbital Works and modded ones). They can follow the same curve, so their output grows with colony size the way demand does. At the anchor size they make the same as in Theory of Toolbox.
 
 Domestic goods are almost only bought by colonies, so scaling their producers keeps them balanced. With Gentle, one Light Industry then covers about two colonies of its own size at every size. Heavy machinery is also bought by mines, refineries and other buildings that do not follow the curve: scaling its producers floods those markets on big colonies and starves them on small ones.",,,,,Curve
-tec_producers,Producers follow the curve,Radio,Domestic goods,"Off, Domestic goods, Domestic goods and heavy machinery","Which producers follow the size curve. Off keeps Theory of Toolbox's output for all of them.",,,Curve
+tec_producers,Producers follow the curve,Radio,Domestic goods,"Off, Domestic goods, Domestic goods and heavy machinery","Which producers follow the size curve. Off keeps Theory of Toolbox's output for all of them. With Bend they only change above the bend size."
+tec_upkeep,Upkeep grows with output,Radio,Square root,"Off, Square root, In step with output","A building pays more upkeep when the curve makes it produce more than at the anchor or bend size: farms always, Light and Heavy Industry when they follow the curve. Square root: three times the output costs 1.7 times the upkeep. In step: three times the output costs three times the upkeep. Upkeep never drops below normal.",,,Curve
 tec_header_raids,Raids Header,Header,Raid loot,,,,,Raids
 tec_raids_text,Raids Text,Text,"A raid uses at most 10 marine groups. In Theory of Toolbox each group takes 1 percent of what the colony uses plus 10 percent of its unsold surplus, so a full raid of 10 groups carries off the whole surplus.
 

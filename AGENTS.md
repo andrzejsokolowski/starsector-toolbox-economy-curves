@@ -27,6 +27,8 @@ board during the work, not only at release time.
   `tec_size_curve` on top of Theory of Toolbox's `aotd_new_scale` (colony food and goods demand)
   and `aotd_toolbox_food_prod` (farm food flat, farm machinery mult), equal to wanted / theirs.
   Divides out Astral Ascension Renewed's `aar_toolbox_cap`. Producers (Light and Heavy Industry) get `tec_size_curve_producers`.
+  Buildings whose output follows the curve get upkeep multiplier `tec_size_curve_upkeep`
+  (`Curve.upkeep`, never below 1).
   Skips frames while Theory of Toolbox's worker threads run.
 - `src/toolboxeconomycurves/Ledger` - every multiplier with its undo, swept each frame and
   released before every save.
