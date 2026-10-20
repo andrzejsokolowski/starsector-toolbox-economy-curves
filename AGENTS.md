@@ -26,7 +26,7 @@ board during the work, not only at release time.
 - `src/toolboxeconomycurves/CurveScript` - transient every-frame script. Adds a multiplier under
   `tec_size_curve` on top of Theory of Toolbox's `aotd_new_scale` (colony food and goods demand)
   and `aotd_toolbox_food_prod` (farm food flat, farm machinery mult), equal to wanted / theirs.
-  Divides out Astral Ascension Renewed's `aar_toolbox_cap`. Makers get `tec_size_curve_makers`.
+  Divides out Astral Ascension Renewed's `aar_toolbox_cap`. Producers (Light and Heavy Industry) get `tec_size_curve_producers`.
   Skips frames while Theory of Toolbox's worker threads run.
 - `src/toolboxeconomycurves/Ledger` - every multiplier with its undo, swept each frame and
   released before every save.

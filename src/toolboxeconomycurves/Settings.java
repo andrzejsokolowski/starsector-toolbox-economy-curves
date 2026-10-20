@@ -47,14 +47,14 @@ public final class Settings {
                 decimal("tec_growth", DEFAULT_GROWTH), list);
     }
 
-    /** Light Industry and every other domestic goods maker follows the curve. */
-    public static boolean scaleGoodsMakers() {
-        return !PRODUCERS_OFF.equals(string("tec_producers", PRODUCERS_OFF));
+    /** Light Industry and every other domestic goods producer follows the curve. */
+    public static boolean scaleGoodsProducers() {
+        return !PRODUCERS_OFF.equals(string("tec_producers", PRODUCERS_GOODS));
     }
 
-    /** Heavy Industry and every other heavy machinery maker follows the curve too. */
-    public static boolean scaleMachineryMakers() {
-        return PRODUCERS_ALL.equals(string("tec_producers", PRODUCERS_OFF));
+    /** Heavy Industry and every other heavy machinery producer follows the curve too. */
+    public static boolean scaleMachineryProducers() {
+        return PRODUCERS_ALL.equals(string("tec_producers", PRODUCERS_GOODS));
     }
 
     /** Share of the colony's stock one marine group takes in a raid, as a fraction. 0 = Theory of Toolbox's loot. */

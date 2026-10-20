@@ -37,7 +37,7 @@ public final class CurveScript implements EveryFrameScript {
     static final String ASCENSION_CAP = "aar_toolbox_cap";
 
     static final String CURVE_ID = "tec_size_curve";
-    static final String PRODUCER_ID = "tec_size_curve_makers";
+    static final String PRODUCER_ID = "tec_size_curve_producers";
     static final String CURVE_DESC = "Size curve (Toolbox Economy Curves)";
 
     private static final double SAME = 1e-4;
@@ -85,8 +85,8 @@ public final class CurveScript implements EveryFrameScript {
         if (AoTDWorkerManager.getRunningWorkers() > 0 || AoTDWorkerManager.isSaveBarrierActive()) return;
 
         Curve curve = Settings.curve();
-        boolean goodsMakers = Settings.scaleGoodsMakers();
-        boolean machineryMakers = Settings.scaleMachineryMakers();
+        boolean goodsProducers = Settings.scaleGoodsProducers();
+        boolean machineryProducers = Settings.scaleMachineryProducers();
 
         for (MarketAPI market : Global.getSector().getEconomy().getMarketsCopy()) {
             int size = market.getSize();
@@ -99,8 +99,8 @@ public final class CurveScript implements EveryFrameScript {
                 farm(ind, curve.farmFood(size));
                 scale(ind.getDemand(Commodities.HEAVY_MACHINERY).getQuantity(), TOOLBOX_FARM, curve.farmMachinery(size));
                 if (ind == population) continue;
-                if (goodsMakers) maker(ind, Commodities.DOMESTIC_GOODS, curve.producer(size));
-                if (machineryMakers) maker(ind, Commodities.HEAVY_MACHINERY, curve.producer(size));
+                if (goodsProducers) producer(ind, Commodities.DOMESTIC_GOODS, curve.producer(size));
+                if (machineryProducers) producer(ind, Commodities.HEAVY_MACHINERY, curve.producer(size));
             }
         }
         ledger.sweep();
@@ -156,7 +156,7 @@ public final class CurveScript implements EveryFrameScript {
     }
 
     /** Light Industry, Heavy Industry and any modded building that makes the commodity. */
-    private void maker(Industry ind, String commodity, double mult) {
+    private void producer(Industry ind, String commodity, double mult) {
         MutableStat supply = ind.getSupply(commodity).getQuantity();
         if (supply.getBaseValue() + sumFlats(supply) <= 0) return;
         assertMult(supply, PRODUCER_ID, mult);

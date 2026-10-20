@@ -4,7 +4,7 @@
 	"modVersion": {
 		"major":0,
 		"minor":1,
-		"patch":1
+		"patch":2
 	},
 	"starsectorVersion":"0.98a-RC8",
 	"directDownloadURL":"https://github.com/andrzejsokolowski/starsector-toolbox-economy-curves/releases/latest/download/ToolboxEconomyCurves.zip"

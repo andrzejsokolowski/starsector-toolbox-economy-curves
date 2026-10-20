@@ -23,10 +23,12 @@ Big colonies therefore run short of domestic goods, and their farms run short of
 - **Stop growing at size** (default 15): the curve stays flat past this size. Works with colonies
   up to size 15, for example from Astral Ascension Renewed. While this mod is on, this setting
   replaces Astral Ascension Renewed's own hold at size 10.
-- **Makers follow the curve**: off, domestic goods makers, or domestic goods and heavy machinery
-  makers.
-- **Loot per marine group** (default 1%): the share of a commodity's stock that one marine group
-  takes in a raid. With Theory of Toolbox alone, a full raid takes the colony's whole surplus.
+- **Producers follow the curve** (default: domestic goods): Light Industry, or Light Industry and
+  Heavy Industry, grow their output along the same curve. They make the same as in Theory of
+  Toolbox at the anchor size.
+- **Loot per marine group** (default 1 percent): the share of a commodity's stock that one marine
+  group takes in a raid. A full raid uses 10 groups, so it takes 10 percent by default. With
+  Theory of Toolbox alone, a full raid takes the colony's whole surplus.
 
 ## Requirements
 
