@@ -3,7 +3,7 @@
   "name": "Toolbox Economy Curves",
   "author": "Oddisz",
   "utility": "false",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Choose how AoTD Theory of Toolbox scales colony food demand, domestic goods demand, farm output and farm machinery demand with colony size: Theory of Toolbox's doubling, a bend that keeps it up to size 7 and grows gentler above, linear, a gentle curve or your own. Buildings that produce more pay more upkeep. Light Industry (and optionally Heavy Industry) can follow the same curve, and cuts raid loot down to a share of what the colony actually holds. Everything is in the LunaLib settings and works up to colony size 15.",
   "modThreadId": "36178",
   "gameVersion": "0.98a-RC8",

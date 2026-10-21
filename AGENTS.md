@@ -35,6 +35,11 @@ board during the work, not only at release time.
 - `src/toolboxeconomycurves/raids` - swaps Theory of Toolbox's commodity raid targets for
   `FairCommodityRaid` at listener priority 1.
 - `src/toolboxeconomycurves/Settings` - LunaLib reads with defaults.
+- `src/toolboxeconomycurves/fork` - Theory of Toolbox Scheduler Fork support. `SchedulerFork` finds the
+  fork by its version ("spp") or name and, after each pass, reports the colonies whose multipliers moved
+  (`Ledger.changed`, threshold in `Changes`). `ForkBridge` is the only class naming the fork
+  (`MarketRegistry.markDirty`, flags DIRTY_INDUSTRIES | DIRTY_DERIVED_ECONOMY), compiled against the
+  stand-in in `stubs/`, which is never packaged.
 
 Why a multiplier and not a replaced class: Theory of Toolbox's economy step reapplies every colony
 and reads the amounts right after, and a replaced industry class would not reach colonies already

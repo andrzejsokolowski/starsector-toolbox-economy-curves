@@ -12,6 +12,7 @@ import com.fs.starfarer.api.impl.campaign.ids.Commodities;
 import com.fs.starfarer.api.impl.campaign.ids.Industries;
 
 import data.kaysaar.aotd.tot.scripts.economy.AoTDWorkerManager;
+import toolboxeconomycurves.fork.SchedulerFork;
 
 /**
  * Puts the chosen size curve on every colony in the Sector.
@@ -25,6 +26,9 @@ import data.kaysaar.aotd.tot.scripts.economy.AoTDWorkerManager;
  * Astral Ascension Renewed holds Theory of Toolbox's doubling at size 10 with a multiplier of its
  * own ({@link #ASCENSION_CAP}). That one is divided out as well, so this mod's curve and its own
  * "stop growing at size" setting decide alone.
+ *
+ * The Theory of Toolbox Scheduler Fork only recalculates colonies it knows have changed, so every
+ * colony whose numbers this mod moved is reported to it after each pass ({@link SchedulerFork}).
  *
  * The script is transient and everything comes off before a save ({@link #suspend()}).
  */
@@ -48,6 +52,8 @@ public final class CurveScript implements EveryFrameScript {
 
     private final Ledger ledger = new Ledger();
     private boolean suspended;
+    /** The colony the current pass is working on, so the ledger knows whose numbers moved. */
+    private MarketAPI market;
 
     private CurveScript() {}
 
@@ -62,6 +68,8 @@ public final class CurveScript implements EveryFrameScript {
         if (current == null) return;
         current.suspended = true;
         current.ledger.releaseAll();
+        // Nothing is reported during a save: the multipliers go back on, and get reported, after it.
+        current.ledger.changed();
     }
 
     public static void resume() {
@@ -91,7 +99,8 @@ public final class CurveScript implements EveryFrameScript {
         double upkeepPower = Settings.upkeepPower();
         boolean machineryProducers = Settings.scaleMachineryProducers();
 
-        for (MarketAPI market : Global.getSector().getEconomy().getMarketsCopy()) {
+        for (MarketAPI m : Global.getSector().getEconomy().getMarketsCopy()) {
+            market = m;
             int size = market.getSize();
             Industry population = market.getIndustry(Industries.POPULATION);
             if (population != null) {
@@ -108,7 +117,9 @@ public final class CurveScript implements EveryFrameScript {
                 if (onCurve) assertMult(ind.getUpkeep(), UPKEEP_ID, curve.upkeep(size, upkeepPower), UPKEEP_DESC);
             }
         }
+        market = null;
         ledger.sweep();
+        SchedulerFork.markChanged(ledger.changed());
     }
 
     /** Turns Theory of Toolbox's multiplier {@code theirs} into {@code wanted}. */
@@ -187,6 +198,6 @@ public final class CurveScript implements EveryFrameScript {
     private void assertMult(MutableStat stat, String id, double value, String desc) {
         if (Double.isNaN(value) || Double.isInfinite(value)) return;
         if (Math.abs(value - 1) < SAME) return;
-        ledger.mult(stat, id, (float) value, desc);
+        ledger.mult(stat, id, (float) value, desc, market);
     }
 }

@@ -41,6 +41,11 @@ Big colonies therefore run short of domestic goods, and their farms run short of
 - AoTD - Theory of Toolbox 1.0.13
 - LunaLib
 
+## Compatibility
+
+- Works with the AoTD - Theory of Toolbox Scheduler Fork (StarsectorPrepatcher): colonies whose
+  numbers this mod changes are reported to the fork, so it recalculates them.
+
 ## Saves
 
 Nothing from this mod is written into a save, so you can add it to a game in progress or remove

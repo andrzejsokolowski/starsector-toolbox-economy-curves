@@ -1,4 +1,4 @@
-Subject: [0.98a] Toolbox Economy Curves 1.0.1 - choose how Theory of Toolbox scales your colonies
+Subject: [0.98a] Toolbox Economy Curves 1.0.2 - choose how Theory of Toolbox scales your colonies
 
 [center][img width=128]https://github.com/andrzejsokolowski/starsector-toolbox-economy-curves/blob/main/graphics/icons/toolbox-economy-curves-small.png?raw=true[/img]
 [size=28pt][url=https://github.com/andrzejsokolowski/starsector-toolbox-economy-curves/releases/latest][b]Toolbox Economy Curves[/b][/url][/size]
@@ -58,11 +58,14 @@ Every curve is a LunaLib setting and can be changed mid-game. All four amounts f
 [list]
 [li]Safe to add to or remove from a game in progress: nothing from this mod is written into saves.[/li]
 [li]Astral Ascension Renewed: colonies past size 10 follow this mod's curve. Its "Stop growing at size" setting replaces Astral Ascension Renewed's own hold at size 10.[/li]
+[li]Works with the Theory of Toolbox Scheduler Fork (StarsectorPrepatcher).[/li]
 [li]Theory of Toolbox puts a 31 day "Sudden surge of demand" shortage on colonies whose demand rises. Switching the curve can trigger it once. It clears by itself.[/li]
 [/list]
 [/center]
 
 [spoiler=Version log]
+[b]1.0.2[/b]
+[list][li]Works with the Theory of Toolbox Scheduler Fork: it is told which colonies this mod changed, so it recalculates them.[/li][/list]
 [b]1.0.1[/b]
 [list][li]Added the forum topic link for Version Checker.[/li][/list]
 [b]1.0.0[/b]
