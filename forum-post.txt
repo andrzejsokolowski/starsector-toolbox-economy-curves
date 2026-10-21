@@ -1,0 +1,61 @@
+[center][img width=128]https://github.com/andrzejsokolowski/starsector-toolbox-economy-curves/blob/main/graphics/icons/toolbox-economy-curves-small.png?raw=true[/img]
+[size=28pt][url=https://github.com/andrzejsokolowski/starsector-toolbox-economy-curves/releases/latest][b]Toolbox Economy Curves[/b][/url][/size]
+[url=https://github.com/andrzejsokolowski/starsector-toolbox-economy-curves/releases/latest][img]https://img.shields.io/github/downloads/andrzejsokolowski/starsector-toolbox-economy-curves/total?style=for-the-badge&label=download[/img][/url]  [url=https://github.com/andrzejsokolowski/starsector-toolbox-economy-curves][img]https://img.shields.io/github/v/release/andrzejsokolowski/starsector-toolbox-economy-curves?display_name=tag&sort=semver&style=for-the-badge&label=source[/img][/url]
+[/center]
+[center][b]
+WHAT DOES THIS MOD DO?
+AoTD - Theory of Toolbox doubles a colony's food and domestic goods demand with every colony size, and doubles farm output with it.
+Light Industry and Heavy Industry do not double. A size 10 colony needs about eight Light Industries' worth of goods, and at size 15 the whole Sector cannot supply one colony.
+
+This mod lets you pick how those amounts grow instead.
+
+
+The code is fully open source. You don't have to credit me. Claude Code built this anyway.
+[color=red]Requires [b]LunaLib[/b] and [b]AoTD - Theory of Toolbox[/b].[/color]
+[/b][/center]
+[center]
+[hr][center][size=12pt][b]Size Curves[/b][/size][/center][hr]
+[list]
+[li][b]Theory of Toolbox:[/b] unchanged, x2 per size.[/li]
+[li][b]Bend:[/b] Theory of Toolbox up to size 7, then x1.4 per size. The colonies the Sector starts with keep Theory of Toolbox's balance, and only big colonies change. The bend size and the growth are settings.[/li]
+[li][b]Linear:[/b] the same amount per size, like vanilla.[/li]
+[li][b]Gentle:[/b] x1.2, x1.5, x2.25, x3.5, x5, x7.5, x10 for sizes 2 to 8, then about x1.3 per size.[/li]
+[li][b]Custom growth[/b] and [b]Custom list:[/b] your own numbers.[/li]
+[/list]
+All four amounts follow the curve: colony food demand, colony domestic goods demand, farm food output and farm heavy machinery demand. Curves are defined up to colony size 15.
+
+[table]
+[tr][td][b]Colony size[/b][/td][td][b]Food a colony needs: Theory of Toolbox[/b][/td][td][b]Bend[/b][/td][td][b]Gentle[/b][/td][/tr]
+[tr][td]6[/td][td]8,064[/td][td]8,064[/td][td]8,064[/td][/tr]
+[tr][td]7[/td][td]18,816[/td][td]18,816[/td][td]14,112[/td][/tr]
+[tr][td]8[/td][td]43,008[/td][td]30,105[/td][td]21,504[/td][/tr]
+[tr][td]10[/td][td]215,040[/td][td]73,758[/td][td]45,696[/td][/tr]
+[tr][td]15[/td][td]10,321,920[/td][td]595,038[/td][td]233,856[/td][/tr]
+[/table]
+
+[hr][center][size=12pt][b]Producers[/b][/size][/center][hr]
+[list]
+[li]Light Industry can follow the same curve (on by default), so a colony's own Light Industry keeps up with its goods demand at every size.[/li]
+[li]Heavy Industry and Orbital Works can follow it too. Off by default: mines and refineries also buy heavy machinery and do not follow the curve.[/li]
+[li]Works with modded buildings that make the same goods.[/li]
+[/list]
+
+[hr][center][size=12pt][b]Upkeep Grows With Output[/b][/size][/center][hr]
+[list]
+[li]Farms and Producers that make more because of the curve pay more upkeep. By default three times the output costs 1.7 times the upkeep.[/li]
+[li]Upkeep never drops below normal. Can be switched off.[/li]
+[/list]
+
+[hr][center][size=12pt][b]Raids[/b][/size][/center][hr]
+[list]
+[li]With Theory of Toolbox alone, one full raid carries off a colony's whole unsold surplus.[/li]
+[li]Here each marine group takes 1% of the colony's stock of a commodity, so a full raid of 10 groups takes 10%. The share is a setting.[/li]
+[/list]
+
+[hr][center][size=12pt][b]Compatibility[/b][/size][/center][hr]
+[list]
+[li]Safe to add to or remove from a game in progress: nothing from this mod is written into saves.[/li]
+[li]Astral Ascension Renewed: colonies past size 10 follow this mod's curve. Its "Stop growing at size" setting replaces Astral Ascension Renewed's own hold at size 10.[/li]
+[li]Theory of Toolbox puts a 31 day "Sudden surge of demand" shortage on colonies whose demand rises. Switching the curve can trigger it once. It clears by itself.[/li]
+[/list]
+[/center]
