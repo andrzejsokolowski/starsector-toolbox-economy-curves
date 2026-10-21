@@ -1,3 +1,5 @@
+Subject: [0.98a] Toolbox Economy Curves 1.0.1 - choose how Theory of Toolbox scales your colonies
+
 [center][img width=128]https://github.com/andrzejsokolowski/starsector-toolbox-economy-curves/blob/main/graphics/icons/toolbox-economy-curves-small.png?raw=true[/img]
 [size=28pt][url=https://github.com/andrzejsokolowski/starsector-toolbox-economy-curves/releases/latest][b]Toolbox Economy Curves[/b][/url][/size]
 [url=https://github.com/andrzejsokolowski/starsector-toolbox-economy-curves/releases/latest][img]https://img.shields.io/github/downloads/andrzejsokolowski/starsector-toolbox-economy-curves/total?style=for-the-badge&label=download[/img][/url]  [url=https://github.com/andrzejsokolowski/starsector-toolbox-economy-curves][img]https://img.shields.io/github/v/release/andrzejsokolowski/starsector-toolbox-economy-curves?display_name=tag&sort=semver&style=for-the-badge&label=source[/img][/url]
@@ -19,10 +21,10 @@ The code is fully open source. You don't have to credit me. Claude Code built th
 [li][b]Theory of Toolbox:[/b] unchanged, x2 per size.[/li]
 [li][b]Bend:[/b] Theory of Toolbox up to size 7, then x1.4 per size. The colonies the Sector starts with keep Theory of Toolbox's balance, and only big colonies change. The bend size and the growth are settings.[/li]
 [li][b]Linear:[/b] the same amount per size, like vanilla.[/li]
-[li][b]Gentle:[/b] x1.2, x1.5, x2.25, x3.5, x5, x7.5, x10 for sizes 2 to 8, then about x1.3 per size.[/li]
+[li][b]Gentle (the default):[/b] x1.2, x1.5, x2.25, x3.5, x5, x7.5, x10 for sizes 2 to 8, then about x1.3 per size.[/li]
 [li][b]Custom growth[/b] and [b]Custom list:[/b] your own numbers.[/li]
 [/list]
-All four amounts follow the curve: colony food demand, colony domestic goods demand, farm food output and farm heavy machinery demand. Curves are defined up to colony size 15.
+Every curve is a LunaLib setting and can be changed mid-game. All four amounts follow the curve: colony food demand, colony domestic goods demand, farm food output and farm heavy machinery demand. Curves are defined up to colony size 15.
 
 [table]
 [tr][td][b]Colony size[/b][/td][td][b]Food a colony needs: Theory of Toolbox[/b][/td][td][b]Bend[/b][/td][td][b]Gentle[/b][/td][/tr]
@@ -59,3 +61,10 @@ All four amounts follow the curve: colony food demand, colony domestic goods dem
 [li]Theory of Toolbox puts a 31 day "Sudden surge of demand" shortage on colonies whose demand rises. Switching the curve can trigger it once. It clears by itself.[/li]
 [/list]
 [/center]
+
+[spoiler=Version log]
+[b]1.0.1[/b]
+[list][li]Added the forum topic link for Version Checker.[/li][/list]
+[b]1.0.0[/b]
+[list][li]First stable release: size curves (Theory of Toolbox, Bend, Linear, Gentle, Custom growth, Custom list), Producers, upkeep that grows with output, and raid loot as a share of the colony's stock.[/li][/list]
+[/spoiler]
