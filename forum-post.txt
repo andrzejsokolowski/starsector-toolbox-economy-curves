@@ -12,7 +12,6 @@ Light Industry and Heavy Industry do not double. A size 10 colony needs about ei
 This mod lets you pick how those amounts grow instead.
 
 
-The code is fully open source. You don't have to credit me. Claude Code built this anyway.
 [color=red]Requires [b]LunaLib[/b] and [b]AoTD - Theory of Toolbox[/b].[/color]
 [/b][/center]
 [center]
@@ -62,6 +61,17 @@ Every curve is a LunaLib setting and can be changed mid-game. All four amounts f
 [li]Theory of Toolbox puts a 31 day "Sudden surge of demand" shortage on colonies whose demand rises. Switching the curve can trigger it once. It clears by itself.[/li]
 [/list]
 [/center]
+
+[spoiler=AI use disclaimer]Some or all assets and code in this mod were created using AI tools:
+[list]
+[li]Code: Claude Code (Claude Opus 5.5)[/li]
+[li]Text (readme and this post): Claude Code (Claude Opus 5.5)[/li]
+[li]Icon: Gemini[/li][/list]
+[/spoiler]
+
+[spoiler=License]
+This mod is under the CC0 (Creative Commons Zero) License, allowing you to do whatever you want with the code, without giving any credit to anyone.
+[/spoiler]
 
 [spoiler=Version log]
 [b]1.0.2[/b]
