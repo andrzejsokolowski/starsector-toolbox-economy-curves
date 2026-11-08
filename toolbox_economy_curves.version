@@ -1,5 +1,6 @@
 {
 	"masterVersionFile":"https://raw.githubusercontent.com/andrzejsokolowski/starsector-toolbox-economy-curves/main/toolbox_economy_curves.version",
+	"changelogURL":"https://raw.githubusercontent.com/andrzejsokolowski/starsector-toolbox-economy-curves/main/changelog.txt",
 	"modName":"Toolbox Economy Curves",
 	"modThreadId":36178,
 	"modVersion": {

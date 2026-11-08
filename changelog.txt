@@ -1,0 +1,25 @@
+Version 1.0.2 (2026-10-21)
+- Works with the Theory of Toolbox Scheduler Fork: it is told which colonies this mod changed, so it recalculates them.
+
+Version 1.0.1 (2026-10-21)
+- Added the forum topic link for Version Checker.
+
+Version 1.0.0 (2026-10-21)
+- First stable release: size curves (Theory of Toolbox, Bend, Linear, Gentle, Custom growth, Custom list), Producers, upkeep that grows with output, and raid loot as a share of the colony's stock.
+
+Version 0.2.0 (2026-10-20)
+- Added: the Bend size curve. It keeps Theory of Toolbox's doubling up to the bend size (default 7) and grows by a gentler factor per size above it (default x1.4).
+- Added: upkeep grows with output. Farms, and Light and Heavy Industry when they follow the curve, pay more upkeep when the curve makes them produce more. By default three times the output costs 1.7 times the upkeep. Can be switched off.
+
+Version 0.1.2 (2026-10-20)
+- Changed: "Makers follow the curve" is now called "Producers follow the curve".
+- Changed: Light Industry follows the size curve by default (Producers: Domestic goods). Settings you already saved in LunaLib are kept.
+- Changed: the raid loot setting says plainly that the share is per marine group, and that a full raid uses 10 groups.
+
+Version 0.1.1 (2026-10-19)
+- Fixed: the game crashed when opening the Raids tab in the LunaLib settings.
+
+Version 0.1.0 (2026-10-19)
+- First release: a choice of size curve for Theory of Toolbox's colony food and domestic goods demand and farm output (Theory of Toolbox, Linear, Gentle, Custom growth or Custom list), with an anchor size and curves up to colony size 15.
+- Optional: Light Industry and Heavy Industry output follow the same curve.
+- Raid loot: each marine group takes a set share of the colony's stock instead of a tenth of its whole surplus.
