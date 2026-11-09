@@ -40,6 +40,7 @@ Big colonies therefore run short of domestic goods, and their farms run short of
 
 - AoTD - Theory of Toolbox 1.0.13
 - LunaLib
+- [OddiszCommons](https://fractalsoftworks.com/forum/index.php?topic=36282) 0.2.0 or newer
 
 ## Compatibility
 
