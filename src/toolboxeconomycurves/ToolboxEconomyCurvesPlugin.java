@@ -11,6 +11,11 @@ public class ToolboxEconomyCurvesPlugin extends BaseModPlugin {
     public static final String MOD_ID = "toolbox_economy_curves";
 
     @Override
+    public void onApplicationLoad() {
+        OddiszCommonsVersion.require();
+    }
+
+    @Override
     public void onGameLoad(boolean newGame) {
         CurveScript.install();
         ListenerManagerAPI listeners = Global.getSector().getListenerManager();
