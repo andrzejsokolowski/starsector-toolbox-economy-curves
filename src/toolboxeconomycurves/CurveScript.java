@@ -12,6 +12,7 @@ import com.fs.starfarer.api.impl.campaign.ids.Commodities;
 import com.fs.starfarer.api.impl.campaign.ids.Industries;
 
 import data.kaysaar.aotd.tot.scripts.economy.AoTDWorkerManager;
+import oddiszcommons.ledger.Ledger;
 import toolboxeconomycurves.fork.SchedulerFork;
 
 /**
@@ -50,7 +51,9 @@ public final class CurveScript implements EveryFrameScript {
 
     private static CurveScript current;
 
-    private final Ledger ledger = new Ledger();
+    /** Collects the colonies whose numbers moved for the Scheduler Fork instead of applying them itself.
+     *  Smaller moves than 0.1 percent are rounding noise from one frame to the next. */
+    private final Ledger ledger = new Ledger("Toolbox Economy Curves", false).setChangeThreshold(0.001f);
     private boolean suspended;
     /** The colony the current pass is working on, so the ledger knows whose numbers moved. */
     private MarketAPI market;
@@ -67,9 +70,8 @@ public final class CurveScript implements EveryFrameScript {
     public static void suspend() {
         if (current == null) return;
         current.suspended = true;
-        current.ledger.releaseAll();
         // Nothing is reported during a save: the multipliers go back on, and get reported, after it.
-        current.ledger.changed();
+        current.ledger.releaseForSave();
     }
 
     public static void resume() {
@@ -119,7 +121,7 @@ public final class CurveScript implements EveryFrameScript {
         }
         market = null;
         ledger.sweep();
-        SchedulerFork.markChanged(ledger.changed());
+        SchedulerFork.markChanged(ledger.takeChangedColonies());
     }
 
     /** Turns Theory of Toolbox's multiplier {@code theirs} into {@code wanted}. */

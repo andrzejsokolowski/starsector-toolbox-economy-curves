@@ -1,3 +1,6 @@
+Version 1.0.3 (2026-11-09)
+- Now requires OddiszCommons 0.2.0, which keeps this mod's colony changes in its shared ledger. No gameplay changes.
+
 Version 1.0.2 (2026-10-21)
 - Works with the Theory of Toolbox Scheduler Fork: it is told which colonies this mod changed, so it recalculates them.
 

@@ -30,14 +30,15 @@ board during the work, not only at release time.
   Buildings whose output follows the curve get upkeep multiplier `tec_size_curve_upkeep`
   (`Curve.upkeep`, never below 1).
   Skips frames while Theory of Toolbox's worker threads run.
-- `src/toolboxeconomycurves/Ledger` - every multiplier with its undo, swept each frame and
-  released before every save.
+- The ledger is OddiszCommons' `oddiszcommons.ledger.Ledger` (a required mod since 1.0.3): every
+  multiplier with its undo, swept each frame and released before every save. This mod's ledger only
+  collects changed colonies (`reapplyColonies` false, threshold 0.001) and never applies them itself.
 - `src/toolboxeconomycurves/raids` - swaps Theory of Toolbox's commodity raid targets for
   `FairCommodityRaid` at listener priority 1.
 - `src/toolboxeconomycurves/Settings` - LunaLib reads with defaults.
 - `src/toolboxeconomycurves/fork` - Theory of Toolbox Scheduler Fork support. `SchedulerFork` finds the
   fork by its version ("spp") or name and, after each pass, reports the colonies whose multipliers moved
-  (`Ledger.changed`, threshold in `Changes`). `ForkBridge` is the only class naming the fork
+  (`Ledger.takeChangedColonies`). `ForkBridge` is the only class naming the fork
   (`MarketRegistry.markDirty`, flags DIRTY_INDUSTRIES | DIRTY_DERIVED_ECONOMY), compiled against the
   stand-in in `stubs/`, which is never packaged.
 
