@@ -1,4 +1,4 @@
-[center][img width=128]https://github.com/andrzejsokolowski/starsector-toolbox-economy-curves/blob/main/graphics/icons/toolbox-economy-curves-small.png?raw=true[/img]
+[center][img width=128]https://raw.githubusercontent.com/andrzejsokolowski/starsector-toolbox-economy-curves/main/icon.png[/img]
 [size=28pt][url=https://github.com/andrzejsokolowski/starsector-toolbox-economy-curves/releases/latest][b]Toolbox Economy Curves[/b][/url][/size]
 [url=https://github.com/andrzejsokolowski/starsector-toolbox-economy-curves/releases/latest][img]https://img.shields.io/github/downloads/andrzejsokolowski/starsector-toolbox-economy-curves/total?style=for-the-badge&label=download[/img][/url]  [url=https://github.com/andrzejsokolowski/starsector-toolbox-economy-curves][img]https://img.shields.io/github/v/release/andrzejsokolowski/starsector-toolbox-economy-curves?display_name=tag&sort=semver&style=for-the-badge&label=source[/img][/url]
 [/center]
@@ -72,6 +72,8 @@ This mod is under the CC0 (Creative Commons Zero) License, allowing you to do wh
 [/spoiler]
 
 [spoiler=Version log]
+[b]1.0.5[/b]
+[list][li]New gold icon in mod managers (TriOS) and in LunaLib's settings.[/li][/list]
 [b]1.0.4[/b]
 [list][li]Works with any OddiszCommons from 0.2.0 on: the game no longer turns this mod off as incompatible when a newer OddiszCommons is installed.[/li][/list]
 [b]1.0.3[/b]

@@ -155,7 +155,7 @@ tasks.named('check') {
 // Only what the game loads.
 def releaseFiles = copySpec {
     from(projectDir) {
-        include 'mod_info.json', 'toolbox_economy_curves.version'
+        include 'mod_info.json', 'toolbox_economy_curves.version', 'icon.png'
         include 'data/**', 'graphics/**', 'jars/ToolboxEconomyCurves.jar'
     }
 }
