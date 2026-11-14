@@ -21,8 +21,11 @@ import toolboxeconomycurves.fork.SchedulerFork;
  * Theory of Toolbox writes its doubling under its own modifier ids every time a colony is
  * reapplied, and its economy reads the amounts right after that reapply. A multiplier under this
  * mod's own id is not touched by the reapply, so it is still in place when the economy reads. Each
- * one is "wanted amount / Theory of Toolbox's amount", recomputed every frame from what Theory of
+ * one is "wanted amount / Theory of Toolbox's amount", recomputed on every pass from what Theory of
  * Toolbox actually wrote, so nothing in Theory of Toolbox is replaced.
+ *
+ * A pass runs once a second of real time, not every frame ({@link PassTimer} says why that is
+ * enough). The first frame after a game load and after a save runs one at once.
  *
  * Astral Ascension Renewed holds Theory of Toolbox's doubling at size 10 with a multiplier of its
  * own ({@link #ASCENSION_CAP}). That one is divided out as well, so this mod's curve and its own
@@ -54,6 +57,7 @@ public final class CurveScript implements EveryFrameScript {
     /** Collects the colonies whose numbers moved for the Scheduler Fork instead of applying them itself.
      *  Smaller moves than 0.1 percent are rounding noise from one frame to the next. */
     private final Ledger ledger = new Ledger("Toolbox Economy Curves", false).setChangeThreshold(0.001f);
+    private final PassTimer timer = new PassTimer();
     private boolean suspended;
     /** The colony the current pass is working on, so the ledger knows whose numbers moved. */
     private MarketAPI market;
@@ -75,7 +79,10 @@ public final class CurveScript implements EveryFrameScript {
     }
 
     public static void resume() {
-        if (current != null) current.suspended = false;
+        if (current == null) return;
+        current.suspended = false;
+        // The save took every multiplier off: put them back on the next frame, not a second later.
+        current.timer.forceNext();
     }
 
     @Override
@@ -92,9 +99,13 @@ public final class CurveScript implements EveryFrameScript {
     @Override
     public void advance(float amount) {
         if (suspended) return;
+        long now = System.nanoTime();
+        if (!timer.due(now)) return;
         // Theory of Toolbox computes prices on worker threads that read these stats. Adding a new
         // entry while one of them iterates could break it, so wait for a frame with none running.
+        // The pass stays due, so it runs on the first frame they are done.
         if (AoTDWorkerManager.getRunningWorkers() > 0 || AoTDWorkerManager.isSaveBarrierActive()) return;
+        timer.ran(now);
 
         Curve curve = Settings.curve();
         boolean goodsProducers = Settings.scaleGoodsProducers();

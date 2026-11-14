@@ -23,15 +23,18 @@ board during the work, not only at release time.
 - `src/toolboxeconomycurves/Curve` - the size curve, no game classes, tested in `test/`.
   `factor(size)` replaces Theory of Toolbox's 2^(size - 1). Every shape but Theory of Toolbox's
   own is pinned to it at the anchor size.
-- `src/toolboxeconomycurves/CurveScript` - transient every-frame script. Adds a multiplier under
+- `src/toolboxeconomycurves/CurveScript` - transient script. Runs a pass once a second of real time (`PassTimer`,
+  1 s; also while paused; at once after a game load or a save), not every frame. Theory of
+  Toolbox only reads the amounts on its economy step every 3 game days, and our multipliers survive
+  its reapply, so they only go stale when a colony really changes. Adds a multiplier under
   `tec_size_curve` on top of Theory of Toolbox's `aotd_new_scale` (colony food and goods demand)
   and `aotd_toolbox_food_prod` (farm food flat, farm machinery mult), equal to wanted / theirs.
   Divides out Astral Ascension Renewed's `aar_toolbox_cap`. Producers (Light and Heavy Industry) get `tec_size_curve_producers`.
   Buildings whose output follows the curve get upkeep multiplier `tec_size_curve_upkeep`
   (`Curve.upkeep`, never below 1).
-  Skips frames while Theory of Toolbox's worker threads run.
+  Waits while Theory of Toolbox's worker threads run (the pass stays due).
 - The ledger is OddiszCommons' `oddiszcommons.ledger.Ledger` (a required mod since 1.0.3): every
-  multiplier with its undo, swept each frame and released before every save. This mod's ledger only
+  multiplier with its undo, swept after each pass and released before every save. This mod's ledger only
   collects changed colonies (`reapplyColonies` false, threshold 0.001) and never applies them itself.
 - `src/toolboxeconomycurves/raids` - swaps Theory of Toolbox's commodity raid targets for
   `FairCommodityRaid` at listener priority 1.
