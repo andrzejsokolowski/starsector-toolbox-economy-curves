@@ -1,6 +1,6 @@
 # Toolbox Economy Curves
 
-A Starsector 0.98a mod for AoTD - Theory of Toolbox. It lets you choose how colony size scales
+A Starsector 0.98.5a mod for AoTD - Theory of Toolbox. It lets you choose how colony size scales
 four amounts that Theory of Toolbox doubles with every size step:
 
 - colony food demand

@@ -34,8 +34,8 @@ dependencies {
     // OddiszCommons supplies the shared ledger: the sibling project's build, or an installed copy.
     compileOnly files('../OddiszCommons/jars/OddiszCommons.jar')
     compileOnly fileTree(dir: "${starsectorPath}/mods", include: '**/OddiszCommons.jar')
-    // Theory of Toolbox is a hard dependency. Named by folder: an older copy may sit next to it.
-    compileOnly files("${starsectorPath}/mods/${toolboxFolder}/jars/AoTDToolboxTheory.jar")
+    // Theory of Toolbox is a hard dependency. Found wherever it is installed, whatever the folder's version.
+    compileOnly fileTree(dir: "${starsectorPath}/mods", include: '**/AoTDToolboxTheory.jar')
     // Scheduler Fork classes that the original Theory of Toolbox does not have.
     compileOnly sourceSets.stubs.output
 
