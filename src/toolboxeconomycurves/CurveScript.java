@@ -34,6 +34,9 @@ import toolboxeconomycurves.fork.SchedulerFork;
  * The Theory of Toolbox Scheduler Fork only recalculates colonies it knows have changed, so every
  * colony whose numbers this mod moved is reported to it after each pass ({@link SchedulerFork}).
  *
+ * Each pass also keeps {@link IncomeGuard} last on every colony, which drops NaN and endless income
+ * numbers left by other mods.
+ *
  * The script is transient and everything comes off before a save ({@link #suspend()}).
  */
 public final class CurveScript implements EveryFrameScript {
@@ -47,8 +50,8 @@ public final class CurveScript implements EveryFrameScript {
     static final String CURVE_ID = "tec_size_curve";
     static final String PRODUCER_ID = "tec_size_curve_producers";
     static final String UPKEEP_ID = "tec_size_curve_upkeep";
-    static final String CURVE_DESC = "Size curve (Toolbox Economy Curves)";
-    static final String UPKEEP_DESC = "Upkeep grows with output (Toolbox Economy Curves)";
+    static final String CURVE_DESC = "(TEC) Size curve";
+    static final String UPKEEP_DESC = "(TEC) Upkeep grows with output";
 
     private static final double SAME = 1e-4;
 
@@ -74,6 +77,8 @@ public final class CurveScript implements EveryFrameScript {
     public static void suspend() {
         if (current == null) return;
         current.suspended = true;
+        // The income guard is a colony condition: off before the save, back on the next pass.
+        IncomeGuard.removeAll();
         // Nothing is reported during a save: the multipliers go back on, and get reported, after it.
         current.ledger.releaseForSave();
     }
@@ -114,6 +119,7 @@ public final class CurveScript implements EveryFrameScript {
 
         for (MarketAPI m : Global.getSector().getEconomy().getMarketsCopy()) {
             market = m;
+            IncomeGuard.keepLast(market);
             int size = market.getSize();
             Industry population = market.getIndustry(Industries.POPULATION);
             if (population != null) {

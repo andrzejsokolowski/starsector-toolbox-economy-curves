@@ -1,3 +1,7 @@
+Version 1.0.7 (2026-11-15)
+- Fixed colony income showing NaN at stability 0 with Corrupt.Officials and Industrial Evolution's Corrupt Colony Officials option: their corruption penalty no longer turns into an endless or NaN number.
+- Shorter lines in colony tooltips: "(TEC) Upkeep grows with output" and "(TEC) Size curve".
+
 Version 1.0.6 (2026-11-14)
 - Better frame rate on the campaign map: the size curve is now checked once a second instead of every frame, also while paused. Colony numbers can take up to a second to update after a building change.
 

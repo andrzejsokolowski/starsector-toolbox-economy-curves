@@ -36,6 +36,13 @@ board during the work, not only at release time.
 - The ledger is OddiszCommons' `oddiszcommons.ledger.Ledger` (a required mod since 1.0.3): every
   multiplier with its undo, swept after each pass and released before every save. This mod's ledger only
   collects changed colonies (`reapplyColonies` false, threshold 0.001) and never applies them itself.
+- `src/toolboxeconomycurves/IncomeGuard` - hidden colony condition `tec_income_guard`
+  (`data/campaign/market_conditions.csv`). Each curve pass keeps it last on every colony (conditions
+  apply in list order), where it drops NaN and endless flat/percent/mult entries from the colony's
+  income and upkeep multipliers and every building's income and upkeep. Cause: at stability 0 the
+  income multiplier is x0 while Theory of Toolbox's trade income is not multiplied, so Corrupt.Officials
+  divides its penalty by 0 and Industrial Evolution's corruption turns the NaN income into x NaN.
+  Taken off every colony before a save (`suspend`), so saves never hold it.
 - `src/toolboxeconomycurves/raids` - swaps Theory of Toolbox's commodity raid targets for
   `FairCommodityRaid` at listener priority 1.
 - `src/toolboxeconomycurves/Settings` - LunaLib reads with defaults.

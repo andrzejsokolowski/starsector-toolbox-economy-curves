@@ -1,0 +1,2 @@
+name,id,tags,planetary,decivRemove,script,desc,icon,order
+Income Guard,tec_income_guard,,FALSE,TRUE,toolboxeconomycurves.IncomeGuard,"Hidden. Drops NaN and endless income numbers left by other mods.",graphics/icons/markets/smuggling.png,10000
