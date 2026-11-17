@@ -24,8 +24,8 @@ Big colonies therefore run short of domestic goods, and their farms run short of
 - **Anchor size** (default 6): Linear, Gentle and the custom curves give Theory of Toolbox's
   amounts at this size.
 - **Stop growing at size** (default 15): the curve stays flat past this size. Works with colonies
-  up to size 15, for example from Astral Ascension Renewed. While this mod is on, this setting
-  replaces Astral Ascension Renewed's own hold at size 10.
+  up to size 15, for example from Colonial Hypergrowth. While this mod is on, this setting
+  replaces Colonial Hypergrowth's own hold at size 10.
 - **Producers follow the curve** (default: domestic goods): Light Industry, or Light Industry and
   Heavy Industry, grow their output along the same curve. They make the same as in Theory of
   Toolbox at the anchor size.

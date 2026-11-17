@@ -27,7 +27,7 @@ import toolboxeconomycurves.fork.SchedulerFork;
  * A pass runs once a second of real time, not every frame ({@link PassTimer} says why that is
  * enough). The first frame after a game load and after a save runs one at once.
  *
- * Astral Ascension Renewed holds Theory of Toolbox's doubling at size 10 with a multiplier of its
+ * Colonial Hypergrowth holds Theory of Toolbox's doubling at size 10 with a multiplier of its
  * own ({@link #ASCENSION_CAP}). That one is divided out as well, so this mod's curve and its own
  * "stop growing at size" setting decide alone.
  *
@@ -44,7 +44,7 @@ public final class CurveScript implements EveryFrameScript {
     /** Theory of Toolbox's ids: the colony's demand multiplier and the farm corrector. */
     static final String TOOLBOX_SCALE = "aotd_new_scale";
     static final String TOOLBOX_FARM = "aotd_toolbox_food_prod";
-    /** Astral Ascension Renewed's hold at size 10. */
+    /** Colonial Hypergrowth's hold at size 10. */
     static final String ASCENSION_CAP = "aar_toolbox_cap";
 
     static final String CURVE_ID = "tec_size_curve";

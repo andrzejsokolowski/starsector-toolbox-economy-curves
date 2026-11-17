@@ -1,3 +1,6 @@
+Version 1.1.1 (2026-11-17)
+- Astral Ascension Renewed is now called Colonial Hypergrowth: the "Stop growing at size" setting text uses the new name.
+
 Version 1.1.0 (2026-11-15)
 - Updated for Starsector 0.98.5a.
 

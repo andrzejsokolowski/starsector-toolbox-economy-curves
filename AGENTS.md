@@ -29,7 +29,7 @@ board during the work, not only at release time.
   its reapply, so they only go stale when a colony really changes. Adds a multiplier under
   `tec_size_curve` on top of Theory of Toolbox's `aotd_new_scale` (colony food and goods demand)
   and `aotd_toolbox_food_prod` (farm food flat, farm machinery mult), equal to wanted / theirs.
-  Divides out Astral Ascension Renewed's `aar_toolbox_cap`. Producers (Light and Heavy Industry) get `tec_size_curve_producers`.
+  Divides out Colonial Hypergrowth's `aar_toolbox_cap`. Producers (Light and Heavy Industry) get `tec_size_curve_producers`.
   Buildings whose output follows the curve get upkeep multiplier `tec_size_curve_upkeep`
   (`Curve.upkeep`, never below 1).
   Waits while Theory of Toolbox's worker threads run (the pass stays due).
