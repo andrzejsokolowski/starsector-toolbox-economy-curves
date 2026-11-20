@@ -77,7 +77,7 @@ This mod is under the CC0 (Creative Commons Zero) License, allowing you to do wh
 
 [spoiler=Version log]
 [b]1.1.1[/b]
-[list][li]Astral Ascension Renewed is now called Colonial Hypergrowth: the "Stop growing at size" setting text uses the new name.[/li][/list]
+[list][li]The "Stop growing at size" setting text names Colonial Hypergrowth.[/li][/list]
 [b]1.1.0[/b]
 [list][li]Updated for Starsector 0.98.5a.[/li][/list]
 [b]1.0.7[/b]
